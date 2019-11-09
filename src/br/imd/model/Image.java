@@ -12,10 +12,10 @@ public class Image {
 	}
 	
 	public boolean hasPerson () {
-		return hasPerson;
+		return this.hasPerson;
 	}
 	
 	public List<Float> getFeatures () {
-		return features;
+		return this.features;
 	}
 }

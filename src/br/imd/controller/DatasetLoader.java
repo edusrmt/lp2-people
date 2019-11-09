@@ -18,15 +18,12 @@ public class DatasetLoader {
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split(",");
                 List<Float> arrayOfFeatures = new ArrayList<Float>();
-                boolean person;
                 
                 for (int i = 0; i < 1000; i++) {
                 	arrayOfFeatures.add(Float.parseFloat(data[i]));
                 }
                 
-                person = data[1000] == "person";
-                
-                images.add(new Image (person, arrayOfFeatures));
+                images.add(new Image (data[1000].equals("person"), arrayOfFeatures));
             }
         } catch (IOException e) {
             e.printStackTrace();
