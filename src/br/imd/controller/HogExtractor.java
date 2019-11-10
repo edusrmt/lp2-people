@@ -18,7 +18,6 @@ public class HogExtractor {
 		MatOfFloat features = new MatOfFloat();
 		
 		img = Imgcodecs.imread(filepath, Imgcodecs.IMREAD_GRAYSCALE);
-		Imgproc.resize(img, img, new Size(64, 128), 0.5, 0.5, Imgproc.INTER_LINEAR);
 		hog.compute(img, features);
 		List<Float> arrayOfFeatures = features.toList();
 		

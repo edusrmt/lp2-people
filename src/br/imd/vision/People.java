@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javafx.scene.control.TextArea;
 import javafx.util.Pair;
 
 import br.imd.controller.*;
 
 public class People {
-	public static void detect (Video input) {
+	public static void detect (Video input, int timeStep, TextArea output) {
 		List<Image> dataset = DatasetLoader.readCSV("img/dataset.csv");
 		List<Boolean> results = new ArrayList<Boolean>();
 		
@@ -62,23 +63,40 @@ public class People {
 			boolean stamp = results.get(i);
 			
 			if (stamp) {
-				if(hasStamp) {
-					if(!anyStamp) anyStamp = true;
-					
-					System.out.println("[" + startStamp + " - " + i + "] PERSON DETECTED");
-					hasStamp = false;
-				} else {
+				if(!hasStamp) {
 					hasStamp = true;
 					startStamp = i;
+					if(!anyStamp) anyStamp = true;
+				} else if (i == results.size() - 1) {
+					output.appendText("[" + indexToTimeStamp(startStamp, timeStep) + " - " + indexToTimeStamp(i+1, timeStep) + "] PERSON DETECTED\n");
+				}
+			} else {
+				if (hasStamp) {
+					output.appendText("[" + indexToTimeStamp(startStamp, timeStep) + " - " + indexToTimeStamp(i, timeStep) + "] PERSON DETECTED\n");
+					hasStamp = false;
 				}
 			}
 		}
 		
-		if (hasStamp) {
-			System.out.println("[" + startStamp + " - END] PERSON DETECTED");
+		if (!anyStamp)
+			output.appendText("NO PERSON DETECTED\n");
+	}
+	
+	private static String indexToTimeStamp (int index, int timeStep) {
+		int seconds = index * timeStep;
+		int minutes = 0;
+		int hours = 0;
+				
+		while (seconds > 60) {
+			seconds -= 60;
+			minutes++;
 		}
 		
-		if (!anyStamp)
-			System.out.println("NO PERSON DETECTED");
+		while (minutes > 60) {
+			minutes -= 60;
+			hours++;
+		}
+		
+		return new String(hours + ":" + minutes + ":" + seconds);
 	}
 }

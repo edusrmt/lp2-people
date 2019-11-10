@@ -40,8 +40,8 @@ public class EventHandler {
 			String videoPath = selectedFile.getPath().replace("\\", "/");
 			
 			try {
-				Video inputVideo = VideoReader.read(videoPath);
-				People.detect(inputVideo);
+				Video inputVideo = VideoReader.read(videoPath, 5);
+				People.detect(inputVideo, 5, outputTextArea);
 			} catch (UnicodeFilePathException e) {
 				Alert alert = new Alert(AlertType.ERROR, "Can't open a file with Unicode characters in its path!", ButtonType.CLOSE);
 				alert.showAndWait();
