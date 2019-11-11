@@ -28,7 +28,7 @@
             <Tooltip text="Lower values mean higher processing time." />
          </tooltip>
       </Label>
-      <TextField layoutX="176.0" layoutY="198.0" text="5" />
+      <TextField fx:id="precisionField" layoutX="176.0" layoutY="198.0" text="5" />
       <Text layoutX="42.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed by Eduardo Sarmento" />
    </children>
 </AnchorPane>
